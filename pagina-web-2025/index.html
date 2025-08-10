@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Zone - Plantilla Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
+        
+        :root {
+            --neon-red: #5a0f0f;
+            --dark-red: #6a0000;
+            --dark-bg: #0a0000;
+            --darker-bg: #050000;
+            --accent: #cc2a2a;
+            --light-red: #e63d3d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(90, 15, 15, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(106, 0, 0, 0.1) 0%, transparent 20%);
+        }
+        
+        .offer-banner {
+            background: linear-gradient(90deg, var(--dark-red), var(--accent));
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .download-counter {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 30px;
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            font-size: 0.9rem;
+            z-index: 1000;
+        }
+        
+        .testimonials {
+            padding: 80px 0;
+            background: var(--darker-bg);
+        }
+        
+        .testimonial-card {
+            background: rgba(30, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-red);
+            margin: 20px 0;
+        }
+        
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-card span {
+            color: var(--neon-red);
+            font-weight: bold;
+        }
+        
+        .premium {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(106, 0, 0, 0.1), rgba(204, 42, 42, 0.1));
+            text-align: center;
+        }
+        
+        .premium-list {
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: left;
+        }
+        
+        .premium-list li {
+            margin: 15px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .premium-list li:before {
+            content: "✓";
+            color: var(--neon-red);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .games-section {
+            padding: 80px 0;
+            background: linear-gradient(to right, #0a0000, #1a0000);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .games-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-red), var(--dark-red), transparent);
+        }
+
+        .games-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 30px 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            cursor: grab;
+            will-change: transform;
+            transition: transform 0.2s ease-out;
+        }
+
+        .games-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .games-container::-webkit-scrollbar-track {
+            background: rgba(30, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .games-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--neon-red), var(--dark-red));
+            border-radius: 10px;
+        }
+
+        .game-card {
+            min-width: 280px;
+            background: rgba(40, 0, 0, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(106, 0, 0, 0.3);
+            transition: all 0.3s;
+            scroll-snap-align: start;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(106, 0, 0, 0.3);
+            border-color: var(--dark-red);
+        }
+
+        .game-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .game-card:hover .game-image img {
+            transform: scale(1.1);
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-title {
+            color: var(--neon-red);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .game-genre {
+            display: inline-block;
+            background: rgba(106, 0, 0, 0.2);
+            color: var(--light-red);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .game-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: var(--neon-red);
+        }
+
+        .game-price span {
+            color: #aaa;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        .game-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(45deg, var(--neon-red), var(--dark-red));
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(204, 42, 42, 0.4);
+        }
+
+        .scroll-hint {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--neon-red);
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .view-more {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .view-more-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--dark-red), var(--accent));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 12px rgba(106, 0, 0, 0.4);
+        }
+
+        .view-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(106, 0, 0, 0.6);
+        }
+
+        .view-more-btn svg {
+            margin-left: 10px;
+            transition: transform 0.3s;
+        }
+
+        .view-more-btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(0);}
+            40% {transform: translateX(-10px);}
+            60% {transform: translateX(-5px);}
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(10, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-red);
+            box-shadow: 0 0 15px rgba(90, 15, 15, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 30px;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            color: var(--neon-red);
+            text-shadow: 0 0 5px var(--neon-red);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--light-red);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-red);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 110px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                linear-gradient(45deg, transparent 65%, var(--dark-red) 65%),
+                linear-gradient(-45deg, transparent 65%, var(--neon-red) 65%);
+            background-size: 30px 30px;
+            opacity: 0.1;
+            animation: diagonalMove 30s linear infinite;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--neon-red), var(--dark-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            position: relative;
+            animation: glitch 1s linear infinite;
+        }
+        
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 var(--neon-red), -2px 0 var(--dark-red); }
+            25% { text-shadow: -2px 0 var(--neon-red), 2px 0 var(--dark-red); }
+            50% { text-shadow: 2px 0 var(--dark-red), -2px 0 var(--neon-red); }
+            100% { text-shadow: -2px 0 var(--dark-red), 2px 0 var(--neon-red); }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--neon-red), var(--dark-red));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(90, 15, 15, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(90, 15, 15, 0.6);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .features {
+            padding: 100px 0;
+            background-color: var(--darker-bg);
+            position: relative;
+        }
+        
+        .features::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-red), var(--dark-red), transparent);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-red), var(--dark-red));
+            border-radius: 3px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(30, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+            border: 1px solid rgba(106, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(106, 0, 0, 0.3);
+            border-color: var(--dark-red);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(106, 0, 0, 0.1), transparent);
+            z-index: -1;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--neon-red);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--neon-red);
+        }
+        
+        .news {
+            padding: 100px 0;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background: rgba(30, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(90, 15, 15, 0.3);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(90, 15, 15, 0.3);
+            border-color: var(--neon-red);
+        }
+        
+        .news-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .news-card:hover .news-img img {
+            transform: scale(1.1);
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-date {
+            color: var(--neon-red);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background-color: var(--darker-bg);
+            padding: 50px 0 20px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-red), var(--dark-red), transparent);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--neon-red);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-red);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(106, 0, 0, 0.2);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--dark-red);
+            transform: translateY(-3px);
+            box-shadow: 0 0 12px var(--dark-red);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 5px var(--neon-red); }
+            50% { text-shadow: 0 0 10px var(--neon-red), 0 0 15px var(--dark-red); }
+            100% { text-shadow: 0 0 5px var(--neon-red); }
+        }
+        
+        @keyframes diagonalMove {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(90, 15, 15, 0.4);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .download-counter {
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: max-content;
+            }
+
+            .games-container {
+                gap: 20px;
+                padding: 20px 15px;
+            }
+
+            .game-card {
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner de Oferta -->
+    <div class="offer-banner">
+        🚀 <strong>OFERTA ESPECIAL</strong> - 50% de descuento por tiempo limitado
+    </div>
+    
+    <!-- Botón de WhatsApp -->
+    <a href="https://wa.me/1234567890" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Contador de Descargas -->
+    <div class="download-counter">
+        ⚠️ <span id="counter">157</span> personas están viendo esta plantilla
+    </div>
+    
+    <!-- Partículas -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">GAMEZONE</div>
+                <div class="nav-links">
+                    <a href="#">Inicio</a>
+                    <a href="#features">Características</a>
+                    <a href="#premium">Premium</a>
+                    <a href="#testimonials">Opiniones</a>
+                    <a href="#games">Juegos</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Plantilla Gaming PRO</h1>
+                <p>Diseño de alto impacto para comunidades, tiendas o blogs de videojuegos. Totalmente personalizable y lista para usar.</p>
+                <a href="#premium" class="btn">Ver Versión Premium</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de Características -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Características Principales</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3>Diseño Gaming</h3>
+                    <p>Efectos visuales modernos con estilo gaming profesional.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>100% Responsive</h3>
+                    <p>Adaptable a móviles, tablets y desktop.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Rápida y Liviana</h3>
+                    <p>Optimizada para máxima velocidad de carga.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección Premium -->
+    <section class="premium" id="premium">
+        <div class="container">
+            <h2 class="section-title">Versión Premium</h2>
+            <p>Potencia tu sitio con estas características exclusivas:</p>
+            
+            <ul class="premium-list">
+                <li>+5 páginas adicionales (Tienda, Foro, Perfil de usuario)</li>
+                <li>Sistema completo de login/registro</li>
+                <li>Panel de administración integrado</li>
+                <li>Compatibilidad con WordPress</li>
+                <li>Soporte prioritario 24/7</li>
+                <li>Documentación detallada</li>
+                <li>Galeria de juegos interactiva</li>
+                <li>Sistema de comentarios</li>
+                <li>Efectos especiales adicionales</li>
+            </ul>
+            
+            <a href="#contact" class="btn">¡Quiero la Versión Premium!</a>
+        </div>
+    </section>
+    
+    <!-- Testimonios -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Opiniones de Clientes</h2>
+            
+            <div class="testimonial-card">
+                <p>"Implementé esta plantilla en mi comunidad gaming y el engagement aumentó un 70%. ¡Totalmente recomendada!"</p>
+                <span>- Alex Gamer, GameTribune</span>
+            </div>
+            
+            <div class="testimonial-card">
+                <p>"El código es limpio y bien documentado. La personalización fue muy sencilla incluso para alguien con poca experiencia."</p>
+                <span>- María López, IndieGameDev</span>
+            </div>
+
+            <div class="testimonial-card">
+                <p>"La atención al cliente es excepcional. Me ayudaron con todas mis preguntas y la plantilla superó mis expectativas."</p>
+                <span>- Carlos Ruiz, GameReview</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Juegos -->
+    <section class="games-section" id="games">
+        <div class="container">
+            <h2 class="section-title">Juegos Destacados</h2>
+            <div class="games-container">
+                <!-- Juego 1 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://via.placeholder.com/400x225/5a0f0f/ffffff?text=Cyberpunk+2077" alt="Cyberpunk 2077">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Cyberpunk 2077</h3>
+                        <span class="game-genre">RPG • Acción</span>
+                        <p class="game-description">Sumérgete en el oscuro futuro de Night City.</p>
+                        <div class="game-price">$39.99 <span>$59.99</span></div>
+                        <a href="#" class="game-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- Juego 2 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://via.placeholder.com/400x225/5a0f0f/ffffff?text=Elden+Ring" alt="Elden Ring">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Elden Ring</h3>
+                        <span class="game-genre">Souls-like • Mundo Abierto</span>
+                        <p class="game-description">Un épico RPG de fantasía oscura.</p>
+                        <div class="game-price">$49.99 <span>$69.99</span></div>
+                        <a href="#" class="game-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- Juego 3 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://via.placeholder.com/400x225/5a0f0f/ffffff?text=God+of+War" alt="God of War">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">God of War</h3>
+                        <span class="game-genre">Acción • Aventura</span>
+                        <p class="game-description">Kratos regresa en una nueva mitología.</p>
+                        <div class="game-price">$44.99 <span>$59.99</span></div>
+                        <a href="#" class="game-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- Juego 4 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://via.placeholder.com/400x225/5a0f0f/ffffff?text=Horizon+Forbidden+West" alt="Horizon Forbidden West">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Horizon Forbidden West</h3>
+                        <span class="game-genre">Mundo Abierto • RPG</span>
+                        <p class="game-description">Explora tierras prohibidas en un futuro post-apocalíptico.</p>
+                        <div class="game-price">$54.99 <span>$69.99</span></div>
+                        <a href="#" class="game-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- Juego 5 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://via.placeholder.com/400x225/5a0f0f/ffffff?text=Spider-Man" alt="Spider-Man">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Spider-Man Remastered</h3>
+                        <span class="game-genre">Acción • Aventura</span>
+                        <p class="game-description">Balanceate por Nueva York como el Hombre Araña.</p>
+                        <div class="game-price">$49.99 <span>$59.99</span></div>
+                        <a href="#" class="game-btn">Comprar Ahora</a>
+                    </div>
+                </div>
+
+                <!-- Juego 6 -->
+                <div class="game-card">
+                    <div class="game-image">
+                        <img src="https://via.placeholder.com/400x225/5a0f0f/ffffff?text=Starfield" alt="Starfield">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Starfield</h3>
+                        <span class="game-genre">RPG • Espacio</span>
+                        <p class="game-description">El nuevo universo de Bethesda.</p>
+                        <div class="game-price">$59.99</div>
+                        <a href="#" class="game-btn">Pre-ordenar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-hint">
+                ← Desliza para ver más juegos →
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </div>
+            
+     <!-- Botón "Ver más juegos" modificado para redirigir a games.html -->
+<div class="view-more">
+    <a href="games.html" class="view-more-btn">
+        Ver más juegos
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+    </a>
+</div>
+    
+    <!-- Sección de Noticias -->
+    <section class="news">
+        <div class="container">
+            <h2 class="section-title">Últimas Actualizaciones</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="assets/imagen01.avif" alt="Nuevas Características">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">15 Junio 2023</div>
+                        <h3>Nuevos componentes añadidos</h3>
+                        <p>Galeria interactiva y sistema de comentarios ahora disponibles en la versión premium.</p>
+                        <a href="#" class="game-btn">Leer más</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="assets/soportetecnico.png" alt="Soporte">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">10 Junio 2023</div>
+                        <h3>Soporte mejorado</h3>
+                        <p>Ahora ofrecemos asistencia técnica prioritaria para clientes premium.</p>
+                        <a href="#" class="game-btn">Leer más</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img">
+                        <img src="assets/OFERTAS.png" alt="Ofertas">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">5 Junio 2023</div>
+                        <h3>Oferta por tiempo limitado</h3>
+                        <p>Descuento especial del 50% en la versión completa esta semana.</p>
+                        <a href="#" class="game-btn">Leer más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GAMEZONE</h3>
+                    <p>La mejor plantilla gaming del mercado. Ideal para comunidades, blogs y tiendas.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#features">Características</a></li>
+                        <li><a href="#premium">Premium</a></li>
+                        <li><a href="#testimonials">Opiniones</a></li>
+                        <li><a href="#games">Juegos</a></li>
+                        <li><a href="#news">Noticias</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Licencia</a></li>
+                        <li><a href="#">Términos</a></li>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Cookies</a></li>
+                        <li><a href="#">DMCA</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:ventas@gamezone.com"><i class="fas fa-envelope"></i> ventas@gamezone.com</a></li>
+                        <li><a href="tel:+123456789"><i class="fas fa-phone"></i> +1 234 567 89</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> Soporte</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Dirección: Calle Gaming 123</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 GAMEZONE Template. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Generador de partículas
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 2 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                const hue = 0 + Math.random() * 30;
+                particle.style.backgroundColor = `hsla(${hue}, 100%, 30%, 0.4)`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Efecto hover en tarjetas
+            const cards = document.querySelectorAll('.feature-card, .news-card, .game-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const x = e.offsetX;
+                    const y = e.offsetY;
+                    const { width, height } = card.getBoundingClientRect();
+                    const halfWidth = width / 2;
+                    const halfHeight = height / 2;
+                    
+                    const angleY = (x - halfWidth) / 10;
+                    const angleX = (halfHeight - y) / 10;
+                    
+                    card.style.transform = `rotateY(${angleY}deg) rotateX(${angleX}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'rotateY(0) rotateX(0)';
+                });
+            });
+            
+            // Contador de visitas (simulado)
+            setInterval(() => {
+                document.getElementById('counter').textContent = 
+                    parseInt(document.getElementById('counter').textContent) + 1;
+            }, 10000);
+
+            // Scroll horizontal con rueda del mouse
+            // Scroll horizontal optimizado para mayor fluidez
+const gamesContainer = document.querySelector('.games-container');
+let isDown = false;
+let startX;
+let scrollLeft;
+let momentumId;
+let velocity = 0;
+let lastTime = 0;
+let lastPosition = 0;
+const friction = 0.88; // Aumentado para menos fricción (antes 0.95)
+const boostFactor = 2.8; // Factor de aceleración
+
+// Optimizaciones de rendimiento
+gamesContainer.style.willChange = 'scroll-position';
+gamesContainer.style.backfaceVisibility = 'hidden';
+gamesContainer.style.transform = 'translateZ(0)';
+
+// Scroll suavizado con curva de aceleración más agresiva
+function smoothScrollTo(element, target, duration = 400) { // Duración reducida
+    const start = element.scrollLeft;
+    const change = target - start;
+    const startTime = performance.now();
+    
+    function animateScroll(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Curva easeOutCubic para un movimiento más rápido
+        const ease = 1 - Math.pow(1 - progress, 3);
+        element.scrollLeft = start + change * ease;
+        
+        if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+        }
+    }
+    
+    requestAnimationFrame(animateScroll);
+}
+
+// Evento de rueda del mouse más sensible
+gamesContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    
+    const currentTime = Date.now();
+    const timeDiff = currentTime - lastTime;
+    const currentPosition = gamesContainer.scrollLeft;
+    
+    // Cálculo de velocidad más preciso
+    if (timeDiff > 0) {
+        velocity = (currentPosition - lastPosition) / timeDiff;
+    }
+    
+    lastTime = currentTime;
+    lastPosition = currentPosition;
+    
+    const delta = e.deltaY || e.detail || e.wheelDelta;
+    // Aplicar factor de boost para mayor respuesta
+    const targetScroll = gamesContainer.scrollLeft + delta * boostFactor;
+    
+    smoothScrollTo(gamesContainer, targetScroll, 300);
+    
+    cancelAnimationFrame(momentumId);
+    
+    // Umbral de velocidad reducido para activar inercia más fácilmente
+    if (Math.abs(velocity) > 0.3) {
+        applyMomentum();
+    }
+});
+
+// Inercia más prolongada
+function applyMomentum() {
+    velocity *= friction;
+    
+    if (Math.abs(velocity) > 0.2) { // Umbral más bajo
+        gamesContainer.scrollLeft += velocity * 20; // Incremento mayor
+        momentumId = requestAnimationFrame(applyMomentum);
+    } else {
+        velocity = 0;
+    }
+}
+
+// Interacción de arrastre más precisa
+gamesContainer.addEventListener('mousedown', (e) => {
+    isDown = true;
+    gamesContainer.style.cursor = 'grabbing';
+    startX = e.pageX - gamesContainer.offsetLeft;
+    scrollLeft = gamesContainer.scrollLeft;
+    cancelAnimationFrame(momentumId);
+    velocity = 0;
+    lastTime = Date.now();
+    lastPosition = scrollLeft;
+});
+
+gamesContainer.addEventListener('mouseleave', () => {
+    isDown = false;
+    gamesContainer.style.cursor = 'grab';
+    if (Math.abs(velocity) > 0.5) {
+        applyMomentum();
+    }
+});
+
+gamesContainer.addEventListener('mouseup', () => {
+    isDown = false;
+    gamesContainer.style.cursor = 'grab';
+    if (Math.abs(velocity) > 0.5) {
+        applyMomentum();
+    }
+});
+
+gamesContainer.addEventListener('mousemove', (e) => {
+    if(!isDown) return;
+    e.preventDefault();
+    
+    const x = e.pageX - gamesContainer.offsetLeft;
+    const walk = (x - startX) * 7; // Mayor sensibilidad al arrastre
+    const prevScrollLeft = gamesContainer.scrollLeft;
+    gamesContainer.scrollLeft = scrollLeft - walk;
+    
+    // Cálculo de velocidad en tiempo real
+    const now = Date.now();
+    const timeDiff = now - lastTime;
+    if (timeDiff > 2) {
+        velocity = (gamesContainer.scrollLeft - prevScrollLeft) / timeDiff;
+    }
+    lastTime = now;
+    lastPosition = gamesContainer.scrollLeft;
+});
+
+            // Menú móvil
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+
+            // Cerrar menú al hacer clic en un enlace
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if(window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                    }
+                });
+            });
+
+            // Ajustar menú al cambiar tamaño de pantalla
+            window.addEventListener('resize', () => {
+                if(window.innerWidth > 768) {
+                    navLinks.style.display = 'flex';
+                } else {
+                    navLinks.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
